@@ -1,5 +1,7 @@
 package leetcode.algorithms.easy;
 
+import leetcode.algorithms.TreeNode;
+
 public class InvertBinaryTree {
 
     public static TreeNode invertTree(TreeNode root) {
@@ -14,19 +16,6 @@ public class InvertBinaryTree {
         invertTree(root.left);
         invertTree(root.right);
         return root;
-    }
-
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }
 
