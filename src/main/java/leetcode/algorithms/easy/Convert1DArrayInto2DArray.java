@@ -1,7 +1,7 @@
 package leetcode.algorithms.easy;
 
 // 2022. Convert 1D Array Into 2D Array
-public interface Convert1DArrayInto2DArray {
+public class Convert1DArrayInto2DArray {
 
     public static int[][] construct2DArray(int[] original, int m, int n) {
         if (m * n != original.length) {
