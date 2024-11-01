@@ -5,13 +5,20 @@ public class DeleteCharactersToMakeFancyString {
 
     public String makeFancyString(String s) {
         StringBuilder sb = new StringBuilder();
+        sb.append(s.charAt(0));
+        char prev = s.charAt(0);
 
-        for (int i = 0; i < s.length(); i++) {
-            int size = sb.length();
-            if (size >= 2 && s.charAt(i) == sb.charAt(size - 1) && s.charAt(i) == sb.charAt(size - 2)) {
-                continue;
+        int freq = 1;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == prev) {
+                freq ++;
+            } else {
+                freq = 1;
+                prev = s.charAt(i);
             }
-            sb.append(s.charAt(i));
+            if (freq < 3) {
+                sb.append(s.charAt(i));
+            }
         }
         return sb.toString();
     }
