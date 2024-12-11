@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-// 2981. Find Longest Special Substring That Occurs Thrice I
+// 2981. Find Longest Special Substring That Occurs Thrice I (Google)
 public class FindLongestSpecialSubstringThatOccursThriceI {
 
     public int maximumLength(String s) {
