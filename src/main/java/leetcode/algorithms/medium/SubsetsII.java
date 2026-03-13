@@ -2,29 +2,31 @@ package leetcode.algorithms.medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
+// 90. Subsets II
 public class SubsetsII {
+
+    List<List<Integer>> res = new LinkedList<>();
+    LinkedList<Integer> track = new LinkedList<>();
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> subset = new ArrayList<>();
-        createSubset(nums, 0, result, subset);
-        return result;
+        backtrack(nums, 0);
+        return res;
     }
-    public void createSubset(int[] nums, int i, List<List<Integer>> result, List<Integer> subset) {
-        if (i == nums.length) {
-            result.add(new ArrayList<>(subset));
-            return;
-        }
-        subset.add(nums[i]);
-        createSubset(nums, i + 1, result, subset);
-        subset.remove(subset.size() - 1);
 
-        while (i + 1 < nums.length && nums[i] == nums[i + 1]) {
-            i ++;
+    void backtrack(int[] nums, int start) {
+        res.add(new LinkedList<>(track));
+
+        for (int i = start; i < nums.length; i++) {
+            if (i > start && nums[i] == nums[i - 1])
+                continue;
+
+            track.add(nums[i]);
+            backtrack(nums, i + 1);
+            track.removeLast();
         }
-        createSubset(nums, i + 1, result, subset);
     }
 }
