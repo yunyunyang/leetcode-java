@@ -2,35 +2,45 @@ package leetcode.algorithms.medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
+// 40. Combination Sum II
 public class CombinationSumII {
 
+    List<List<Integer>> res = new LinkedList<>();
+    LinkedList<Integer> track = new LinkedList<>();
+    int trackSum = 0;
+
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        if (target == 0)
+            return res;
+
         Arrays.sort(candidates);
-        List<List<Integer>> output = new ArrayList<>();
-        List<Integer> comb = new ArrayList<>();
-        createComb(candidates, target, output, comb, 0, 0);
-        return output;
+        backtrack(candidates, target, 0);
+        return res;
     }
 
-    private void createComb(int[] candidates, int target, List<List<Integer>> output, List<Integer> comb, int i, int total) {
-        if (total == target) {
-            output.add(new ArrayList<>(comb));
+    void backtrack(int[] candidates, int target, int start) {
+        if (trackSum == target) {
+            res.add(new LinkedList<>(track));
             return;
         }
 
-        if (i >= candidates.length || total > target) {
+        if (trackSum > target)
             return;
-        }
 
-        comb.add(candidates[i]);
-        createComb(candidates, target, output, comb, i + 1, total + candidates[i]);
-        comb.remove(comb.size() - 1);
+        for (int i = start; i < candidates.length; i++) {
+            if (i > start && candidates[i] == candidates[i - 1])
+                continue;
 
-        while (i + 1 < candidates.length && candidates[i] == candidates[i + 1]) {
-            i ++;
+            track.add(candidates[i]);
+            trackSum += candidates[i];
+
+            backtrack(candidates, target, i + 1);
+
+            track.removeLast();
+            trackSum -= candidates[i];
         }
-        createComb(candidates, target, output, comb, i + 1, total);
     }
 }
