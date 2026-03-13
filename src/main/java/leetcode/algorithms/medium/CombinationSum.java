@@ -1,29 +1,38 @@
 package leetcode.algorithms.medium;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 // 39. Combination Sum
 public class CombinationSum {
 
+    List<List<Integer>> res = new LinkedList<>();
+    LinkedList<Integer> track = new LinkedList<>();
+    int trackSum = 0;
+
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> comb = new ArrayList<>();
-        createCombination(candidates, target,0, result, comb, 0);
-        return result;
+        backtrack(candidates, target, 0);
+        return res;
     }
 
-    public void createCombination(int[] candidates, int target, int i, List<List<Integer>> result, List<Integer> comb, int sum) {
-        if (sum == target) {
-            result.add(new ArrayList<>(comb));
+    void backtrack(int[] nums, int target, int start) {
+        if (trackSum == target) {
+            res.add(new LinkedList<>(track));
             return;
         }
-        if (i >= candidates.length || sum > target) {
+
+        if (trackSum > target)
             return;
+
+        for (int i = start; i < nums.length; i++) {
+            track.add(nums[i]);
+            trackSum += nums[i];
+
+            backtrack(nums, target, i);
+
+            track.removeLast();
+            trackSum -= nums[i];
         }
-        comb.add(candidates[i]);
-        createCombination(candidates, target, i, result, comb, sum + candidates[i]);
-        comb.remove(comb.size() - 1);
-        createCombination(candidates, target, i + 1, result, comb, sum);
     }
 }
