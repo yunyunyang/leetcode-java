@@ -1,0 +1,18 @@
+package leetcode.algorithms.easy;
+
+// 2078. Two Furthest Houses With Different Colors
+public class TwoFurthestHousesWithDifferentColors {
+
+    public int maxDistance(int[] colors) {
+        int n = colors.length;
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (colors[i] != colors[j]) {
+                    res = Math.max(res, j - i);
+                }
+            }
+        }
+        return res;
+    }
+}
