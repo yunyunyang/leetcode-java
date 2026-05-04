@@ -7,9 +7,9 @@ public class RotateImage {
         int n = matrix.length;
         for (int i = 0; i < n; i++) {
             for (int j = i; j < n; j++) {
-                int tmp = matrix[i][j];
+                int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
-                matrix[j][i] = tmp;
+                matrix[j][i] = temp;
             }
         }
 
@@ -18,15 +18,14 @@ public class RotateImage {
         }
     }
 
-    private void reverse(int[] row) {
-        int left = 0, right = row.length - 1;
-        while (left < right) {
-            int tmp = row[left];
-            row[left] = row[right];
-            row[right] = tmp;
-
-            left++;
-            right--;
+    void reverse(int[] arr) {
+        int i = 0, j = arr.length - 1;
+        while (i < j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
+            j--;
         }
     }
 }
