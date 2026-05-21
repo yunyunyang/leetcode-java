@@ -7,38 +7,33 @@ import java.util.Set;
 public class NumberOfIslands {
 
     public static int numIslands(char[][] grid) {
-        int rows = grid.length;
-        int cols = grid[0].length;
-        Set<String> visited = new HashSet<>();
-        int islands = 0;
+        int m = grid.length, n = grid[0].length;
 
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
-                if (grid[r][c] == '1' && !visited.contains(r + "," + c)) {
-                    islands ++;
-                    dfs(grid, r, c, visited);
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    dfs(grid, i, j);
                 }
             }
         }
-        return islands;
+        return res;
     }
 
-    private static void dfs(char[][] grid, int row, int col, Set<String> visited) {
-        int rows = grid.length;
-        int cols = grid[0].length;
-
-        if (row < 0 || row >= rows ||
-                col < 0 || col >= cols ||
-                grid[row][col] == '0' ||
-                visited.contains(row + "," + col)) {
+    static void dfs(char[][] grid, int i, int j) {
+        int m = grid.length, n = grid[0].length;
+        if (i < 0 || j < 0 || i >= m || j >= n)
             return;
-        }
-        visited.add(row + "," + col);
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        for (int[] direction : directions) {
-            int newRow = row + direction[0];
-            int newCol = col + direction[1];
-            dfs(grid, newRow, newCol, visited);
-        }
+
+        if (grid[i][j] == '0')
+            return;
+
+        grid[i][j] = '0';
+        dfs(grid, i + 1, j);
+        dfs(grid, i - 1, j);
+        dfs(grid, i, j + 1);
+        dfs(grid, i, j - 1);
+
     }
 }
